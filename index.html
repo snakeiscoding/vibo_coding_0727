@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>智慧家電儀表板 - 賽博龐克風格</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- 標題區域 -->
+        <header class="header">
+            <h1 class="title">智慧家電儀表板</h1>
+            <div class="time-display" id="timeDisplay"></div>
+        </header>
+
+        <!-- 主要內容區域 -->
+        <main class="main-content">
+            <!-- 左側面板 - 家電狀態 -->
+            <section class="appliance-panel">
+                <h2 class="panel-title">家電狀態監控</h2>
+                <div class="appliance-grid" id="applianceGrid">
+                    <!-- 家電狀態將由JavaScript動態生成 -->
+                </div>
+            </section>
+
+            <!-- 右側面板 - 用電統計 -->
+            <section class="stats-panel">
+                <!-- 用電量切換按鈕 -->
+                <div class="usage-toggle">
+                    <button class="toggle-btn active" data-period="week">本週用電量</button>
+                    <button class="toggle-btn" data-period="month">本月用電量</button>
+                </div>
+
+                <!-- 用電量圖表 -->
+                <div class="chart-container">
+                    <div id="usageChart" class="chart"></div>
+                </div>
+
+                <!-- 統計資訊 -->
+                <div class="stats-info">
+                    <div class="stat-card">
+                        <h3>最高用電時段</h3>
+                        <div class="stat-value" id="peakTime">19:00-21:00</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>耗電量最高家電</h3>
+                        <div class="stat-value" id="highestConsumer">冷氣機</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部狀態列 -->
+        <footer class="footer">
+            <div class="status-indicators">
+                <div class="status-item">
+                    <span class="status-dot online"></span>
+                    <span>系統連線正常</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-dot online"></span>
+                    <span>所有感測器運作中</span>
+                </div>
+                <div class="status-item">
+                    <span class="status-dot online"></span>
+                    <span>資料同步完成</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

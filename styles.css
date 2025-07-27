@@ -1,0 +1,416 @@
+/* 賽博龐克風格智慧家電儀表板 CSS */
+
+/* 基礎設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: #00ffff;
+    overflow: hidden;
+    height: 100vh;
+    position: relative;
+}
+
+/* 背景動畫效果 */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 255, 0, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+/* 標題區域 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.3),
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    min-height: 60px;
+}
+
+.title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: bold;
+    text-shadow: 
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 30px #00ffff;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.time-display {
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    font-weight: bold;
+}
+
+/* 主要內容區域 */
+.main-content {
+    display: flex;
+    gap: 15px;
+    flex: 1;
+    min-height: 0;
+    height: calc(100vh - 200px);
+}
+
+/* 左側面板 - 家電狀態 */
+.appliance-panel {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 0, 0.3),
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-title {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    margin-bottom: 15px;
+    text-align: center;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.appliance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.appliance-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.appliance-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+}
+
+.appliance-card.on {
+    border-color: #00ff00;
+    box-shadow: 
+        0 0 15px rgba(0, 255, 0, 0.5),
+        inset 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.appliance-card.off {
+    border-color: #ff0000;
+    box-shadow: 
+        0 0 15px rgba(255, 0, 0, 0.3),
+        inset 0 0 10px rgba(255, 0, 0, 0.1);
+}
+
+.appliance-icon {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.appliance-name {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.appliance-status {
+    font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.appliance-status.on {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    border: 1px solid #00ff00;
+}
+
+.appliance-status.off {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff0000;
+    border: 1px solid #ff0000;
+}
+
+.power-consumption {
+    font-size: clamp(0.6rem, 1.5vw, 0.7rem);
+    color: #888;
+    margin-top: 5px;
+}
+
+/* 右側面板 - 用電統計 */
+.stats-panel {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff00ff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 
+        0 0 20px rgba(255, 0, 255, 0.3),
+        inset 0 0 20px rgba(255, 0, 255, 0.1);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+}
+
+.usage-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.toggle-btn {
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #ff00ff;
+    color: #ff00ff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+}
+
+.toggle-btn:hover {
+    background: rgba(255, 0, 255, 0.2);
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.toggle-btn.active {
+    background: rgba(255, 0, 255, 0.3);
+    box-shadow: 
+        0 0 15px rgba(255, 0, 255, 0.5),
+        inset 0 0 10px rgba(255, 0, 255, 0.2);
+}
+
+.chart-container {
+    flex: 1;
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 8px;
+    border: 1px solid #333;
+    min-height: 250px;
+}
+
+.chart {
+    width: 100%;
+    height: 100%;
+    min-height: 250px;
+}
+
+.stats-info {
+    display: flex;
+    gap: 10px;
+}
+
+.stat-card {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #00ffff;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.stat-card h3 {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    margin-bottom: 8px;
+    color: #00ffff;
+}
+
+.stat-value {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 5px #00ffff;
+}
+
+/* 底部狀態列 */
+.footer {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 12px 20px;
+    backdrop-filter: blur(10px);
+    min-height: 50px;
+}
+
+.status-indicators {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+}
+
+.status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-dot.online {
+    background: #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+/* 動畫效果 */
+@keyframes glow {
+    from {
+        text-shadow: 
+            0 0 10px #00ffff,
+            0 0 20px #00ffff,
+            0 0 30px #00ffff;
+    }
+    to {
+        text-shadow: 
+            0 0 20px #00ffff,
+            0 0 30px #00ffff,
+            0 0 40px #00ffff;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .appliance-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-info {
+        flex-direction: column;
+    }
+    
+    .status-indicators {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-height: 600px) {
+    .container {
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .header {
+        padding: 10px 15px;
+        min-height: 50px;
+    }
+    
+    .main-content {
+        height: calc(100vh - 150px);
+    }
+    
+    .chart-container {
+        min-height: 200px;
+    }
+    
+    .chart {
+        min-height: 200px;
+    }
+}
+
+/* Highcharts 自定義樣式 */
+.highcharts-background {
+    fill: transparent !important;
+}
+
+.highcharts-title {
+    fill: #00ffff !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+.highcharts-axis-labels text {
+    fill: #00ffff !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+.highcharts-grid-line {
+    stroke: rgba(0, 255, 255, 0.2) !important;
+}
+
+.highcharts-series {
+    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.5)) !important;
+} 
